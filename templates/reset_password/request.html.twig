@@ -1,0 +1,34 @@
+{% extends 'auth_base.html.twig' %}
+
+{% block title %}Reset your password{% endblock %}
+
+{% block body %}
+    <main class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
+
+        {% for flashError in app.flashes('reset_password_error') %}
+            <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+        {% endfor %}
+        <section>
+            <h3 class="font-bold text-2xl">Reset your password</h3>
+        </section>
+
+        <section class="mt-10">
+
+            {{ form_start(requestForm, {'attr': {'class' : 'flex flex-col'}}) }}
+                <div class="mb-6 pt-3 rounded bg-gray-200">
+                    <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="email">Email</label>
+                    {{ form_widget(requestForm.email, {'attr': {'class': 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3'}}) }}
+                </div>
+                <div>
+                    <small>
+                        Enter your email address and we we will send you a
+                        link to reset your password.
+                    </small>
+                </div>
+                <button class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200">Send password reset email</button>
+            {{ form_end(requestForm) }}
+
+        </section>
+    </main>
+
+{% endblock %}
