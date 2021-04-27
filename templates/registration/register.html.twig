@@ -1,21 +1,60 @@
-{% extends 'base.html.twig' %}
+{% extends 'auth_base.html.twig' %}
 
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    {% for flashError in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-    {% endfor %}
+        <main class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
+            <section>
+                <h3 class="font-bold text-2xl">Welcome to Fact Checker</h3>
+                <p class="text-gray-600 pt-2">Register.</p>
+            </section>
 
-    <h1>Register</h1>
+            {% for flashError in app.flashes('verify_email_error') %}
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">{{ flashError }}</div>
+            {% endfor %}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+            <section class="mt-10">
+                {{ form_start(registrationForm, {'attr': {'class':'flex flex-col'}}) }}
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+                    <div class="mb-2 pt-1 rounded bg-gray-200">
+                        <div class="{% if registrationForm.firstName.vars.errors|length > 0 %}bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative{% endif %}">
+                            {{ form_errors(registrationForm.firstName) }}
+                        </div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="email">First Name</label>
+                        {{ form_widget(registrationForm.firstName, { 'attr' : {'class': 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3'} }) }}
+                    </div>
+                    <div class="mb-2 pt-1 rounded bg-gray-200">
+                        <div class="{% if registrationForm.lastName.vars.errors|length > 0 %}bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative{% endif %}">
+                            {{ form_errors(registrationForm.lastName) }}
+                        </div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="email">Last Name</label>
+                        {{ form_widget(registrationForm.lastName, { 'attr' : {'class': 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3'} }) }}
+                    </div>
+                    <div class="mb-2 pt-1 rounded bg-gray-200">
+                        <div class="{% if registrationForm.email.vars.errors|length > 0 %}bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative{% endif %}">
+                            {{ form_errors(registrationForm.email) }}
+                        </div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="email">Email</label>
+                        {{ form_widget(registrationForm.email, { 'attr' : {'class': 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3'} }) }}
+                    </div>
+                    <div class="mb-2 pt-1 rounded bg-gray-200">
+                        <div class="{% if registrationForm.plainPassword.vars.errors|length > 0 %}bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative{% endif %}">
+                            {{ form_errors(registrationForm.plainPassword) }}
+                        </div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="email">Password</label>
+                        {{ form_widget(registrationForm.plainPassword, { 'attr' : {'class': 'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3'} }) }}
+                    </div>
+                    {{ form_row(registrationForm.agreeTerms) }}
+
+                    <button class="mt-2 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200" type="submit">Register</button>
+                {{ form_end(registrationForm) }}
+            
+            </section>
+        </main>
+
+        <div class="max-w-lg mx-auto text-center mt-12 mb-6">
+            <p class="text-white">already have an account? <a href="/login" class="font-bold hover:underline">Log in</a>.</p>
+        </div>
+
+
 {% endblock %}
