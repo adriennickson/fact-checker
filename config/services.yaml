@@ -5,6 +5,9 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     google.custom.search.api.key : '%env(GOOGLE_CUSTOM_SEARCH_API_KEY)%'
+    twitter.api.key : '%env(TWITTER_API_KEY)%'
+    twitter.api.secretkey : '%env(TWITTER_API_SECRET_KEY)%'
+    twitter.api.bearertoken : '%env(TWITTER_API_BEARER_TOKEN)%'
 
 services:
     # default configuration for services in *this* file

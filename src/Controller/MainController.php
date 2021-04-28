@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\GoogleCustomSearch;
+use App\Service\TwitterCustomSearch;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,16 +14,27 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="main")
      */
-    public function index(Request $request, GoogleCustomSearch $googleCustomSearch): Response
+    public function index(
+        Request $request, 
+        GoogleCustomSearch $googleCustomSearch,
+        TwitterCustomSearch $twitterCustomSearch
+        ): Response
     {
         $query = $request->query->get('q');
-        $googleCustomSearchResult = $googleCustomSearch->request($query);
-        dump($googleCustomSearchResult);
-        if ($query){
+
+        if ($query && strlen($query)){
+
+            //$googleCustomSearchResult = ['error' => ['code' => 9999, 'message'=> 'test']];
+            $googleCustomSearchResult = $googleCustomSearch->request($query);
+            $twitterCustomSearchResult = $twitterCustomSearch->request($query);
+
+            dump($twitterCustomSearchResult);
+            
             return $this->render('main/index.html.twig', [
                 'data' => [
                     'query' => $query,
-                    'google' => $googleCustomSearchResult
+                    'google' => $googleCustomSearchResult,
+                    'twitter' => $twitterCustomSearchResult
                 ]
             ]);        
         };

@@ -7,7 +7,7 @@
 	<div
 		class="example-wrapper">
 		<!--Main-->
-		<div class="container pt-24 md:pt-36 mx-auto flex flex-wrap flex-col md:flex-row items-top">
+		<div class="container pt-8 md:pt-12 mx-auto flex flex-wrap flex-col md:flex-row items-top">
 			<!--Left Col-->
 			<div class="flex flex-col w-full xl:w-2/5 justify-top lg:items-start overflow-y-hidden">
 				<h1 class="my-4 text-2xl md:text-4xl text-grey opacity-75 font-bold leading-tight text-center md:text-left">
@@ -26,7 +26,7 @@
 						<label class="block text-blue-300 py-2 font-bold mb-2" for="query">
 							Que voulez-vous vérifier?
 						</label>
-						<input class="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out" id="query" type="text" placeholder="Lorem Ipsum" name='q'/>
+						<input class="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out" id="query" type="text" placeholder="Lorem Ipsum" value="{{ data is defined and data.query is defined ? data.query : ''}}" name='q'/>
 					</div>
 
 					<div class="flex items-center justify-between pt-4">
@@ -37,7 +37,7 @@
 				</form>
 			</div>
 
-            {% include data is defined ? '_includes/query_result.html.twig' : '_includes/projet_presentation.html.twig'  with {'data': data} %}
+            {% include data is defined ? '_includes/query_result.html.twig' : '_includes/projet_presentation.html.twig'  with {'data': data is defined ? data : null} %}
             
 
 			<!--Footer-->

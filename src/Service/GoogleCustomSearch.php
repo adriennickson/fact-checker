@@ -2,7 +2,6 @@
 
 namespace App\Service;
 
-use Google\Client;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
 // https://developers.google.com/custom-search/v1/overview
