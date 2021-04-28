@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Topic{% endblock %}
+
+{% block body %}
+    <main class="bg-white max-w-2xl mx-auto p-8 md:p-12 my-6 rounded-lg shadow-2xl">
+        <section>
+            <h3 class="font-bold text-2xl">Create new Topic</h3>
+        </section>
+
+        {{ include('topic/_form.html.twig') }}
+
+        <a href="{{ path('topic_index') }}">back to list</a>
+    </main>
+{% endblock %}

@@ -1,14 +1,78 @@
 <!--Right Col-->
 <div class="w-full xl:w-3/5 p-12 overflow-hidden">
-    <img class="mx-auto w-full md:w-4/5 transform -rotate-6 transition hover:scale-105 duration-700 ease-in-out hover:rotate-6" src="macbook.svg"/>
+
+    <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
+        <p class="w-full text-gray-600 text-xs md:text-sm pt-6 px-6">Présentation</p>
+        <div class="w-full font-bold text-xl text-gray-900 px-6">👋 Bienvennue sur ✅ <span class="text-indigo-400">Fact</span><span class="bg-clip-text text-transparent bg-gradient-to-r from-gray-300 via-grey-500 to-indigo-500">checker</span>, la plateforme qui vous permet de vérifiez les infos que vous recevez.</div>
+        <p class="text-gray-800 font-serif text-base px-6 mb-5">
+            Chaque jour, des millions d’informations pleuvent sur le monde, elles sont <b>rarement sourcées</b> et ne sont
+            pas remises en question : chacun·e se les approprie, oubliant son esprit critique. Quant aux <b>sachant·e·s</b>
+            capables de les évaluer, il·elle·s ne peuvent raisonnablement pas tout surveiller : journalistes, spécialistes
+            et scientifiques, ne sont pas assez nombreu·x·ses pour nous aider à démêler le vrai du faux.
+        </p>
+    </div>
+
+    <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
+        <div class="flex items-center justify-between">
+            <a href="https://adriennickson.github.io/" target="_blank" class="">
+                <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="Author Name" src="https://fr.gravatar.com/userimage/196734088/523a2892169f9cfd0b239a52e36ac374.png" alt="Avatar of Author">
+            </a>
+        </div>
+    </div>
+
+{% if not app.user %}
+    <div class="flex w-full justify-center justify-between my-5">
+        <div class="flex w-full md:w-1/2 justify-center">
+            <a href="/login" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded cursor-pointer">
+                Log In
+            </a>
+        </div>
+        <div class="flex w-full md:w-1/2 justify-center">
+            <a href="/register" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded cursor-pointer">
+                Register
+            </a>
+        </div>
+    </div>    
+{% else %}
+    <div class="flex w-full justify-center justify-between my-5">
+        <div class="flex w-full md:w-1/2 justify-center">
+            {# <button  onclick="openModal(true)" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded cursor-pointer">
+                go to fact
+            </button> #}
+            <a href="/topic" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded cursor-pointer">
+                go to fact
+            </a>
+        </div>
+        <div class="flex w-full md:w-1/2 justify-center">
+            <a href="/logout" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded cursor-pointer">
+                Log Out
+            </a>
+        </div>
+    </div>        
+{% endif %}
+
 </div>
 
 <div class="mx-auto md:pt-16">
     <p class="text-blue-400 font-bold pb-8 lg:pb-6 text-center">
-        Download our app:
+        Concours pour l’obtention de la Bourse Coddity 2021
     </p>
     <div class="flex w-full justify-center md:justify-start pb-24 lg:pb-0 fade-in">
-        <img src="App Store.svg" class="h-12 pr-12 transform hover:scale-125 duration-300 ease-in-out"/>
-        <img src="Play Store.svg" class="h-12 transform hover:scale-125 duration-300 ease-in-out"/>
+
+        <div class="flex w-full md:w-1/2 justify-center">
+            <div class="px-8">
+                <h3 class="font-bold font-bold text-600-100 whitespace-nowrap">
+                    By <a href="https://adriennickson.github.io/" target="_blank" class="underline font-semibold">A. N. MOMO</a>
+                </h3>
+            </div>
+        </div>
+        <div class="flex w-full md:w-1/2 justify-center">
+            <div class="px-8">
+                <h3 class="font-bold font-bold text-600-100 whitespace-nowrap">
+                    For <a href="https://coddity.com/" target="_blank" class="underline font-semibold">CODDITY</a>                            
+                </h3>
+            </div>
+        </div>
+
     </div>
 </div>

@@ -1,0 +1,18 @@
+{{ form_start(form) }}
+    <section class="mt-10">
+        <form class="flex flex-col" method="POST" action="#">
+            {{ form_errors(form) }}
+            <div class="mb-6 pt-3 rounded bg-gray-200">
+                <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="email">title</label>
+                {{ form_widget(form.title, {'attr': {'class':'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3'}}) }}
+            </div>
+
+            <div class="mb-6 pt-3 rounded bg-gray-200">
+                <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="password">Description</label>
+                {{ form_widget(form.description, {'attr': {'class':'bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3 h-48'}}) }}
+            </div>
+            {{ form_widget(form) }}
+            <button class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200" type="submit">Save</button>
+        </form>
+    </section>
+{{ form_end(form) }}
