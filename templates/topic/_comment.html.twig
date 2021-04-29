@@ -1,0 +1,16 @@
+<!-- Formulaire de commentaire -->
+{# $request->getUri() #}
+<div class="flex items-start space-x-2 w-full">
+    <div class="flex justify-start space-x-2 w-full">
+        <form class="block w-full" method='post' action='{{ path('topic_comment', {'id': topic.id}) }}'>
+            <div class="w-full mb-6 pt-3 rounded bg-gray-200">
+                {% if parent %}
+                    <input type="hidden" name="parent" value="{{ parent }}">
+                {% endif %}                
+                <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="content">Votre commentaire</label>
+                <textarea name="content" id="content" rows="2" required class="bg-gray-200 w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-0"> </textarea>
+                <button class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-1 shadow-lg text-sm hover:shadow-xl transition duration-200 pt-0" type="submit">Envoyer</button>
+            </div>
+        </form>
+    </div>
+</div>

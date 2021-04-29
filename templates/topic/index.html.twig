@@ -3,7 +3,7 @@
 {% block title %}Topic index{% endblock %}
 
 {% block body %}
-
+{# https://tailwindcomponents.com/component/projects-table #}
 <div class="overflow-x-auto">
         <div class="min-w-screen min-h-screen bg-gray-100 flex justify-center bg-gray-100 font-sans overflow-hidden">
             <div class="w-full lg:w-5/6">
@@ -16,7 +16,8 @@
                                 <th class="py-3 px-6 text-left w-1/12">Id</th>
                                 <th class="py-3 px-6 text-left w-2/12">Titre</th>
                                 <th class="py-3 px-6 text-center w-4/12">Description</th>
-                                <th class="py-3 px-6 text-center w-2/12">Date De Création</th>
+                                <th class="py-3 px-6 text-center w-1/12">Date De Création</th>
+                                <th class="py-3 px-6 text-center w-1/12">Commentaires</th>
                                 <th class="py-3 px-6 text-center w-2/12">Auteur</th>
                                 <th class="py-3 px-6 text-center w-1/12">Actions</th>
                             </tr>
@@ -39,9 +40,14 @@
                                             <span class="font-medium">{{ topic.description }}</span>
                                         </div>
                                     </td>
-                                    <td class="py-3 px-6 text-left w-2/12 whitespace-nowrap">
+                                    <td class="py-3 px-6 text-left w-1/12 whitespace-nowrap">
                                         <div class="flex items-center">
-                                            <span class="font-medium">{{ topic.createdAt ? topic.createdAt|date('Y-m-d H:i:s') : '' }}</span>
+                                            <span class="font-medium">{{ topic.createdAt ? topic.createdAt|ago : '' }}</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-6 text-left w-1/12 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <span class="font-medium">{{ topic.comments|length }} commentaire(s)</span>
                                         </div>
                                     </td>
                                     <td class="py-3 px-6 text-center w-2/12">

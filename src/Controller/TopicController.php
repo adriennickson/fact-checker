@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Topic;
 use App\Form\TopicType;
+use App\Repository\CommentRepository;
 use App\Repository\TopicRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -65,6 +67,9 @@ class TopicController extends AbstractController
      */
     public function edit(Request $request, Topic $topic): Response
     {
+        if (!$this->getUser() || $this->getUser()->getId() != $topic->getAutor()->getId()) {
+            return $this->redirectToRoute('topic_index');
+        }
         $form = $this->createForm(TopicType::class, $topic);
         $form->handleRequest($request);
 
@@ -85,6 +90,9 @@ class TopicController extends AbstractController
      */
     public function delete(Request $request, Topic $topic): Response
     {
+        if (!$this->getUser() || $this->getUser()->getId() != $topic->getAutor()->getId()) {
+            return $this->redirectToRoute('topic_index');
+        }
         if ($this->isCsrfTokenValid('delete'.$topic->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($topic);
@@ -93,4 +101,28 @@ class TopicController extends AbstractController
 
         return $this->redirectToRoute('topic_index');
     }
+
+    /**
+     * @Route("/{id}/comment", name="topic_comment", methods={"POST"})
+     */
+    public function comment(Request $request, Topic $topic, CommentRepository $commentRepository): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+        $comment = new Comment();
+        $comment->setTopic($topic);
+        if ($request->request->get('parent')) {
+            $comment->setParent($commentRepository->find($request->request->get('parent')));
+        }
+        $comment->setContent($request->request->get('content'));
+        $comment->setCreatedAt(new \DateTime());
+        $comment->setAutor($this->getUser());
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($comment);
+        $entityManager->flush();    
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
+    }
+
 }
