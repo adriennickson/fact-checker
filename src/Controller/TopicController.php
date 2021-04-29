@@ -7,6 +7,8 @@ use App\Entity\Topic;
 use App\Form\TopicType;
 use App\Repository\CommentRepository;
 use App\Repository\TopicRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,18 +24,29 @@ class TopicController extends AbstractController
      */
     public function index(
         Request $request, 
-        TopicRepository $topicRepository
+        TopicRepository $topicRepository,
+        PaginatorInterface $paginator,
+        EntityManagerInterface $em
     ): Response
     {
-        $topics = null;
+        $pagination = null;
         $query = $request->query->get('q');
+
         if ($query && strlen($query)) {
-            $topics = $topicRepository->findByTitlePart($query);
+            $pagination = $paginator->paginate(
+                $topicRepository->getQueryFindByTitlePart($query), /* query NOT result */
+                $request->query->getInt('page', 1), /*page number*/
+                10 /*limit per page*/
+            );
         }else{
-            $topics = $topicRepository->findAll();
+            $pagination = $paginator->paginate(
+                $em->createQuery("SELECT t FROM App:Topic t"),
+                $request->query->getInt('page', 1),
+                10
+            );
         }
         return $this->render('topic/index.html.twig', [
-            'topics' => $topics,
+            'topics' => $pagination,
         ]);
     }
 

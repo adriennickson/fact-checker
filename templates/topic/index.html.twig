@@ -8,15 +8,26 @@
         <div class="min-w-screen min-h-screen bg-gray-100 flex justify-center bg-gray-100 font-sans overflow-hidden">
             <div class="w-full lg:w-5/6">
                 <h1 class="w-full font-bold text-2xl my-2">Topics</h1>
-                <a href="{{ path('topic_new') }}" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200 px-2">Create new</a>
+
+                    <div class="flex w-full justify-center justify-between my-5">
+                        <div class="flex w-full md:w-1/2 justify-top">
+                            <a href="{{ path('topic_new') }}" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200 px-2">Create new</a>
+                        </div>
+                        <div class="flex w-full md:w-1/2 justify-end">
+                            <form class="w-full" method='get'>
+                                <input type="text" name="q" id="q" placeholder="entrez votre recherche ici..." required class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-gray-600 transition duration-500 px-3 pb-3">
+                            </form>
+                        </div>
+                    </div>    
+                
                 <div class="bg-white shadow-md rounded my-6">
                     <table class="w-full table-auto">
                         <thead>
                             <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                                <th class="py-3 px-6 text-left w-1/12">Id</th>
-                                <th class="py-3 px-6 text-left w-2/12">Titre</th>
+                                <th class="py-3 px-6 text-left w-1/12">{{ knp_pagination_sortable(topics, 'Id', 't.id') }}</th>
+                                <th class="py-3 px-6 text-left w-2/12">{{ knp_pagination_sortable(topics, 'Titre', 't.title') }}</th>
                                 <th class="py-3 px-6 text-center w-4/12">Description</th>
-                                <th class="py-3 px-6 text-center w-1/12">Date De Création</th>
+                                <th class="py-3 px-6 text-center w-1/12">{{ knp_pagination_sortable(topics, 'Date De Création', 't.createdAt') }}</th>
                                 <th class="py-3 px-6 text-center w-1/12">Commentaires</th>
                                 <th class="py-3 px-6 text-center w-2/12">Auteur</th>
                                 <th class="py-3 px-6 text-center w-1/12">Actions</th>
@@ -82,6 +93,9 @@
                             {% endfor %}
                         </tbody>
                     </table>
+                    <div class="navigation">
+                        {{ knp_pagination_render(topics) }}
+                    </div>                    
                 </div>
             </div>
         </div>

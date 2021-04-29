@@ -19,8 +19,7 @@ class TopicRepository extends ServiceEntityRepository
         parent::__construct($registry, Topic::class);
     }
 
-    public function findByTitlePart($q)
-    {
+    public function getQueryFindByTitlePart($q){
         $b = $this->createQueryBuilder('t');
 
         foreach (explode(" ", $q) as $k => $value) {
@@ -30,8 +29,14 @@ class TopicRepository extends ServiceEntityRepository
                 ->setParameter('title_'.$k, '%'.$value.'%')
                 ->setParameter('des_'.$k, '%'.$value.'%');
         }
-        return $b->getQuery()->getResult();
+        return $b->getQuery();
+    }
+
+    public function findByTitlePart($q)
+    {
+        return $this->getQueryFindByTitlePart($q)->getResult();
     }    
+
     // /**
     //  * @return Topic[] Returns an array of Topic objects
     //  */
