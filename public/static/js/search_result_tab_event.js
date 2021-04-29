@@ -7,7 +7,10 @@ buttons.forEach(button => button.onclick = e => {
         oldSelected.classList.remove(i)
     })
     "text-blue-500 border-b-2 font-medium border-blue-500".split(" ").forEach(i => {
-        e.target.classList.add(i);
+        if (e.target.dataset.target)
+            e.target.classList.add(i);
+        else
+            e.target.parentNode.classList.add(i);
     })
 
     document.querySelectorAll(".search-results:not(.hidden)").forEach((el) => el.classList.add("hidden"));

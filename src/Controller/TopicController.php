@@ -20,10 +20,20 @@ class TopicController extends AbstractController
     /**
      * @Route("/", name="topic_index", methods={"GET"})
      */
-    public function index(TopicRepository $topicRepository): Response
+    public function index(
+        Request $request, 
+        TopicRepository $topicRepository
+    ): Response
     {
+        $topics = null;
+        $query = $request->query->get('q');
+        if ($query && strlen($query)) {
+            $topics = $topicRepository->findByTitlePart($query);
+        }else{
+            $topics = $topicRepository->findAll();
+        }
         return $this->render('topic/index.html.twig', [
-            'topics' => $topicRepository->findAll(),
+            'topics' => $topics,
         ]);
     }
 

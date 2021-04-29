@@ -19,6 +19,19 @@ class TopicRepository extends ServiceEntityRepository
         parent::__construct($registry, Topic::class);
     }
 
+    public function findByTitlePart($q)
+    {
+        $b = $this->createQueryBuilder('t');
+
+        foreach (explode(" ", $q) as $k => $value) {
+            $b
+                ->orWhere('t.title LIKE :title_'.$k)
+                ->orWhere('t.description LIKE :des_'.$k)
+                ->setParameter('title_'.$k, '%'.$value.'%')
+                ->setParameter('des_'.$k, '%'.$value.'%');
+        }
+        return $b->getQuery()->getResult();
+    }    
     // /**
     //  * @return Topic[] Returns an array of Topic objects
     //  */

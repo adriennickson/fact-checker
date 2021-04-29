@@ -3,7 +3,7 @@
 {% block title %}Topic{% endblock %}
 
 {% block body %}
-    <h1>Topic</h1>
+    <h1 class="font-bold text-2xl">Topic</h1>
     <a href="{{ path('topic_index') }}">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="15" height="15" viewBox="0 0 447.243 447.243" style="enable-background:new 0 0 447.243 447.243;" xml:space="preserve" class="inline text-red-700">
             <g>
@@ -15,44 +15,48 @@
         back to list
     </a>
 
-    <a href="{{ path('topic_edit', {'id': topic.id}) }}">edit</a>
+    {% if app.user and topic.autor.id == app.user.id %}
+        <a href="{{ path('topic_edit', {'id': topic.id}) }}" class="mb-4 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200 px-2">edit</a>
 
-    {{ include('topic/_delete_form.html.twig') }}
+        {{ include('topic/_delete_form.html.twig') }}
+
+    {% endif %}
 
 
 {# https://tailwindcomponents.com/component/facebook-comments-column #}
-<div x-data="{ open1: false, open2: false }">
-  <div class="bg-gray-100 grid grid-cols-1 md:grid-cols-3 py-4">
-    <div class="w-full sm:max-w-7xl h-auto px-3 py-2 flex flex-col space-y-2">
+<div>
+  <div class="bg-gray-100 grid grid-cols-1 md:grid-cols-7 py-4 place-items-stretch pr-2">
 
-        <table class="border-collapse border border-green-800">
-            <tbody>
-                <tr class="align-top text-left">
-                    <th class="border border-gray-200 p-2">Title</th>
-                    <td class="border border-gray-200 p-2">{{ topic.title }}</td>
-                </tr>
-                <tr class="align-top text-left">
-                    <th class="border border-gray-200 p-2">Description</th>
-                    <td class="border border-gray-200 p-2">{{ topic.description }}</td>
-                </tr>
-                <tr class="align-top text-left whitespace-nowrap">
-                    <th class="border border-gray-200 p-2">Date de création</th>
-                    <td class="border border-gray-200 p-2">{{ topic.createdAt ? topic.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="w-full sm:max-w-7xl px-3 py-2 flex col-span-3 flex-col space-y-2">
+
+        {# https://tailwindcomponents.com/component/facebook-comment #}
+        <div class="dark:bg-gray-800 text-black dark:text-gray-200 p-4 antialiased">
+            <div>
+                <div class="bg-gray-200 dark:bg-gray-700 rounded-3xl px-4 pt-2 pb-2.5">
+                <div class="font-semibold text-sm leading-relaxed">{{topic.autor.firstName}} {{topic.autor.lastName}}</div>
+                <div class="text-normal leading-snug md:leading-normal">{{topic.description}}</div>
+                </div>
+                <div class="text-sm ml-4 mt-0.5 text-gray-500 dark:text-gray-400">{{topic.createdAt|ago}}</div>
+
+                {# <div class="bg-white dark:bg-gray-700 border border-white dark:border-gray-700 rounded-full float-right -mt-8 mr-0.5 flex shadow items-center ">
+                <svg class="p-0.5 h-5 w-5 rounded-full z-20 bg-white dark:bg-gray-700" xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 16 16'><defs><linearGradient id='a1' x1='50%' x2='50%' y1='0%' y2='100%'><stop offset='0%' stop-color='#18AFFF'/><stop offset='100%' stop-color='#0062DF'/></linearGradient><filter id='c1' width='118.8%' height='118.8%' x='-9.4%' y='-9.4%' filterUnits='objectBoundingBox'><feGaussianBlur in='SourceAlpha' result='shadowBlurInner1' stdDeviation='1'/><feOffset dy='-1' in='shadowBlurInner1' result='shadowOffsetInner1'/><feComposite in='shadowOffsetInner1' in2='SourceAlpha' k2='-1' k3='1' operator='arithmetic' result='shadowInnerInner1'/><feColorMatrix in='shadowInnerInner1' values='0 0 0 0 0 0 0 0 0 0.299356041 0 0 0 0 0.681187726 0 0 0 0.3495684 0'/></filter><path id='b1' d='M8 0a8 8 0 00-8 8 8 8 0 1016 0 8 8 0 00-8-8z'/></defs><g fill='none'><use fill='url(#a1)' xlink:href='#b1'/><use fill='black' filter='url(#c1)' xlink:href='#b1'/><path fill='white' d='M12.162 7.338c.176.123.338.245.338.674 0 .43-.229.604-.474.725a.73.73 0 01.089.546c-.077.344-.392.611-.672.69.121.194.159.385.015.62-.185.295-.346.407-1.058.407H7.5c-.988 0-1.5-.546-1.5-1V7.665c0-1.23 1.467-2.275 1.467-3.13L7.361 3.47c-.005-.065.008-.224.058-.27.08-.079.301-.2.635-.2.218 0 .363.041.534.123.581.277.732.978.732 1.542 0 .271-.414 1.083-.47 1.364 0 0 .867-.192 1.879-.199 1.061-.006 1.749.19 1.749.842 0 .261-.219.523-.316.666zM3.6 7h.8a.6.6 0 01.6.6v3.8a.6.6 0 01-.6.6h-.8a.6.6 0 01-.6-.6V7.6a.6.6 0 01.6-.6z'/></g></svg>
+                <span class="text-sm ml-1 pr-1.5 text-gray-500 dark:text-gray-300">3</span>
+                </div> #}
+
+            </div>
+        </div>
     
     </div>
     
-    <div class="bg-white items-start w-full sm:max-w-7xl sm:w-2/3 col-span-2 h-auto shadow px-3 py-2 flex flex-col space-y-2">
+    <div class="bg-white items-start w-full sm:max-w-7xl col-span-4 h-auto shadow px-3 py-2 flex flex-col">
 
         {% for comment in topic.comments %}
             {% if not comment.parent %}       
-                <div class="flex items-start space-x-2">
-                    <div class="flex justify-start space-x-2">
-                        <div class="block">
-                            <div class="flex justify-start space-x-2">
-                                <div class="bg-gray-100 w-auto rounded-xl px-2 pb-2">
+                <div class="flex items-start space-x-2 w-full">
+                    <div class="flex justify-start space-x-2 w-full">
+                        <div class="block w-full">
+                            <div class="flex justify-start space-x-2 w-full">
+                                <div class="bg-gray-100 w-auto rounded-xl px-2 pb-2 w-full">
                                     <div class="font-medium">
                                         <a href="#" class="hover:underline text-sm font-bold">
                                             <small>{{ comment.autor.firstName }} {{ comment.autor.lastName }}</small>
@@ -75,9 +79,9 @@
                             <div class="ml-10 flex flex-col items-start space-x-2 space-y-2">
 
                                 {% for subcomment in comment.comments %}                            
-                                    <div class="flex items-start justify-start space-x-2">
-                                        <div class="block">
-                                        <div class="bg-gray-100 w-auto rounded-xl px-2 pb-2">
+                                    <div class="flex items-start justify-start space-x-2 w-full">
+                                        <div class="block w-full">
+                                        <div class="bg-gray-100 w-auto rounded-xl px-2 pb-2 w-full">
                                             <div class="font-medium">
                                             <a href="#" class="hover:underline text-sm font-bold">
                                                 <small>{{ subcomment.autor.firstName }} {{ subcomment.autor.lastName }}</small>
