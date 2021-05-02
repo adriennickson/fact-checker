@@ -33,7 +33,7 @@
         <div class="dark:bg-gray-800 text-black dark:text-gray-200 p-4 antialiased">
             <div>
                 <div class="bg-gray-200 dark:bg-gray-700 rounded-3xl px-4 pt-2 pb-2.5">
-                <div class="font-semibold text-sm leading-relaxed">{{topic.autor.firstName}} {{topic.autor.lastName}}</div>
+                <div onclick="openModal({{topic.autor.id}})" class="cursor-pointer font-semibold text-sm leading-relaxed">{{topic.autor.firstName}} {{topic.autor.lastName}}</div>
                 <div class="text-normal leading-snug md:leading-normal">{{topic.description}}</div>
                 </div>
                 <div class="text-sm ml-4 mt-0.5 text-gray-500 dark:text-gray-400">{{topic.createdAt|ago}}</div>
@@ -52,9 +52,9 @@
                             <div class="flex justify-start space-x-2 w-full">
                                 <div class="bg-gray-100 w-auto rounded-xl px-2 pb-2 w-full">
                                     <div class="font-medium">
-                                        <a href="#" class="hover:underline text-sm font-bold">
+                                        <button onclick="openModal({{comment.autor.id}})" class="hover:underline text-sm font-bold">
                                             <small>{{ comment.autor.firstName }} {{ comment.autor.lastName }}</small>
-                                        </a>
+                                        </button>
                                     </div>
                                     <div class="text-xs">
                                         {{ comment.content }}
@@ -77,9 +77,9 @@
                                         <div class="block w-full">
                                         <div class="bg-gray-100 w-auto rounded-xl px-2 pb-2 w-full">
                                             <div class="font-medium">
-                                            <a href="#" class="hover:underline text-sm font-bold">
+                                            <button onclick="openModal({{subcomment.autor.id}})" class="hover:underline text-sm font-bold">
                                                 <small>{{ subcomment.autor.firstName }} {{ subcomment.autor.lastName }}</small>
-                                            </a>
+                                            </button>
                                             </div>
                                             <div class="text-xs">
                                                 {{ subcomment.content }}

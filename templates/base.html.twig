@@ -4,11 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Rainblur Landing Page Template: Tailwind Toolbox</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
-
-    <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
     {# Run `composer require symfony/webpack-encore-bundle`
         and uncomment the following Encore helpers to start using Symfony UX #}
@@ -17,13 +14,11 @@
         <link rel="stylesheet" href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" />
         <!--Replace with your tailwind.css once created-->
         <link href="https://unpkg.com/@tailwindcss/custom-forms/dist/custom-forms.min.css" rel="stylesheet" />
-
         <style>
-        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
-
-        html {
-            font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-        }
+          @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+          html {
+              font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+          }
         </style>
     {% endblock %}
 
@@ -80,12 +75,13 @@
 
             <!-- header -->
             <div class="px-4 py-3 border-b border-gray-200">
-            <h2 class="text-xl font-semibold text-gray-600">Title</h2>
+            <h2 id="modalTitle" class="text-xl font-semibold text-gray-600">...</h2>
             </div>
 
             <!-- body -->
             <div class="w-full p-3">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Asperiores, quis tempora! Similique, explicabo quaerat maxime corrupti tenetur blanditiis voluptas molestias totam? Quaerat laboriosam suscipit repellat aliquam blanditiis eum quos nihil.
+              TODO:<br>Ajouter une section <b>edit profile</b> où l’utilisateur pourrait rajouter sa bio et des liens vers son site et/ou ses références. 
+              <br>Et ici on pourra dump cela.
             </div>
 
             <!-- footer -->
@@ -105,22 +101,33 @@
           function openModal (value){
               const modalCl = modal.classList
               const overlayCl = modal_overlay
-
               if(value){
-              overlayCl.classList.remove('hidden')
-              setTimeout(() => {
-                  modalCl.remove('opacity-0')
-                  modalCl.remove('-translate-y-full')
-                  modalCl.remove('scale-150')
-              }, 100);
+                overlayCl.classList.remove('hidden')
+                setTimeout(() => {
+                    modalCl.remove('opacity-0')
+                    modalCl.remove('-translate-y-full')
+                    modalCl.remove('scale-150')
+                }, 100);
+                getUser(value)
               } else {
-              modalCl.add('-translate-y-full')
-              setTimeout(() => {
-                  modalCl.add('opacity-0')
-                  modalCl.add('scale-150')
-              }, 100);
-              setTimeout(() => overlayCl.classList.add('hidden'), 300);
+                modalCl.add('-translate-y-full')
+                setTimeout(() => {
+                    modalCl.add('opacity-0')
+                    modalCl.add('scale-150')
+                }, 100);
+                setTimeout(() => overlayCl.classList.add('hidden'), 300);
               }
+
+          }
+
+          function getUser(id){
+            fetch('/autor/'+id)
+            .then(function(response) {
+              response.json().then( data => {
+                document.querySelector("#modalTitle").innerHTML = data.firstName + " " + data.lastName + " (" + data.email + ")"; 
+                //console.log(data);
+              });
+            })
           }
         </script>        
 

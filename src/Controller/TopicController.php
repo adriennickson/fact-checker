@@ -143,7 +143,8 @@ class TopicController extends AbstractController
         $comment->setAutor($this->getUser());
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($comment);
-        $entityManager->flush();    
+        $entityManager->flush();
+        // TODO: Send mail to autor of topic and autor of parent comment if aplicable     
         $referer = $request->headers->get('referer');
         return $this->redirect($referer);
     }

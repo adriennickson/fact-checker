@@ -9,15 +9,17 @@ class GoogleCustomSearch
 {
 
     private $apiKey;
+    private $cx;
 
     public function __construct(ContainerBagInterface $params)
     {
         $this->apiKey = $params->get('google.custom.search.api.key');
+        $this->cx = $params->get('google.cx');
     }
 
     function request(string $query){
         $ch = curl_init( 'https://customsearch.googleapis.com/customsearch/v1?'. http_build_query([
-            'cx'=> '48677839be897be72',
+            'cx'=> $this->cx,
             'key' => $this->apiKey,
             'q' => $query
         ]) );

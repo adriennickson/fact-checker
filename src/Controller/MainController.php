@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\TopicRepository;
 use App\Service\GoogleCustomSearch;
 use App\Service\TwitterCustomSearch;
@@ -26,12 +27,12 @@ class MainController extends AbstractController
 
         if ($query && strlen($query)){
 
-            $googleCustomSearchResult = ['error' => ['code' => 9999, 'message'=> 'test']];
-            //$googleCustomSearchResult = $googleCustomSearch->request($query);
+            //$googleCustomSearchResult = ['error' => ['code' => 9999, 'message'=> 'test']];
+            $googleCustomSearchResult = $googleCustomSearch->request($query);
             $twitterCustomSearchResult = $twitterCustomSearch->request($query);
             $topics = $topicRepository->findByTitlePart($query);
 
-            dump($twitterCustomSearchResult);
+            dump($googleCustomSearchResult);
 
             return $this->render('main/index.html.twig', [
                 'data' => [
@@ -45,4 +46,17 @@ class MainController extends AbstractController
 
         return $this->render('main/index.html.twig');
     }
+
+    /**
+     * @Route("/autor/{id}", name="get_autor", methods={"GET"})
+     */
+    public function autor(User $user): Response
+    {
+        foreach ($user->getTopics() as $value) {
+            $user->removeTopic($value);
+        }
+        //$user->setPassword('');
+        return $this->json( $user );
+    }
+
 }
